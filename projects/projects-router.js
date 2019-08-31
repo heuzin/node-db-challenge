@@ -76,4 +76,29 @@ router.delete('/:id', (req, res) => {
   });
 });
 
+router.get('/:id/resource', (req, res) => {
+  const { id } = req.params;
+
+  Projects.findResource(id)
+  .then(resource => {
+    res.json(resource);
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'failed to get resource' })
+  })
+});
+
+router.get('/:id/task', (req, res) => {
+  const { id } = req.params;
+
+  Projects.findTask(id)
+  .then(task => {
+    res.json(task);
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'failed to get task' })
+  })
+});
+
+
 module.exports = router;

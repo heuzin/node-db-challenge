@@ -10,12 +10,26 @@ exports.up = function(knex) {
       tbl.increments();
       tbl.string('resource_name', 128).notNullable().unique();
       tbl.string('description');
+      tbl.integer('project_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('projects')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
   })
   .createTable('task', tbl => {
       tbl.increments();
       tbl.string('description', 128).notNullable();
       tbl.string('notes', 128);
       tbl.boolean('completed').notNullable();
+      tbl.integer('project_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('projects')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
   })
 };
 
